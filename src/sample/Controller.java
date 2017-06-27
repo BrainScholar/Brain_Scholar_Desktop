@@ -26,12 +26,12 @@ public class Controller {
 
 
         //******************GET DATA******************//
-        GNA = gna.getValue()/10;
-        GK = gk.getValue()/10;
-        BETA = beta.getValue()/10;
-        GAMMA = gamma.getValue()/10;
-        V_STIM = v_stim.getValue()/10;
-        C = c.getValue()/1000;
+        GNA = gna.getValue();
+        GK = gk.getValue();
+        BETA = beta.getValue();
+        GAMMA = gamma.getValue();
+        V_STIM = v_stim.getValue();
+        C = c.getValue();
         //********************************************//
 
 
