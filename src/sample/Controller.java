@@ -20,7 +20,7 @@ public class Controller {
             series.getData().add(new XYChart.Data<Number,Number>(x,Math.sin(x)));
             System.out.println(x+"  "+ Math.sin(x));
         }
-        //lineChart.getData().clear();
+        lineChart.getData().clear();
         lineChart.getData().addAll(series);
     }
 }
