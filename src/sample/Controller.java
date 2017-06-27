@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
+import java.awt.*;
+
 public class Controller {
     public Button calcButton;
     public Label  chartLabel;
@@ -73,7 +75,9 @@ public class Controller {
         }
         //********************************************//
 
-
+        //Gets rid of the circles on the thousands of points. Cleans up the graph.
+        lineChart.setCreateSymbols(false);
+        
         lineChart.getData().clear();
         lineChart.getData().addAll(series);
     }
