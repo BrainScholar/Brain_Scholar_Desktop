@@ -40,7 +40,8 @@ public class Controller {
         xAxis.setUpperBound(10000);
         yAxis.setAutoRanging(false);
         xAxis.setForceZeroInRange(false);
-        //xAxis.setAutoRanging(false);
+        xAxis.setAutoRanging(false);
+        xAxis.setTickUnit(2000);
         lineChart.setAnimated(false);
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
         final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
