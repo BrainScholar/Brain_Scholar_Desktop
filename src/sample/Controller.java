@@ -25,7 +25,7 @@ public class Controller {
     public int iteration;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
     public Timeline timeline = new Timeline();
-    private SequentialTransition animation;
+
 
     public void updateGraph(){
         //*******VARIABLE LABEL************//
@@ -40,6 +40,7 @@ public class Controller {
         xAxis.setUpperBound(10000);
         yAxis.setAutoRanging(false);
         xAxis.setForceZeroInRange(false);
+        //xAxis.setAutoRanging(false);
         lineChart.setAnimated(false);
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
         final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
