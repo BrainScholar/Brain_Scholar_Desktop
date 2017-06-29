@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.CacheHint;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -12,8 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class Controller {
     public Button calcButton;
@@ -25,6 +28,7 @@ public class Controller {
     public int iteration;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
     public Timeline timeline = new Timeline();
+    public DecimalFormat df3 = new DecimalFormat(".###");
 
 
     public void updateGraph(){
@@ -42,12 +46,33 @@ public class Controller {
         xAxis.setForceZeroInRange(false);
         xAxis.setAutoRanging(false);
         xAxis.setTickUnit(2000);
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number object) {
+                return df3.format(object.doubleValue() * 0.001) + "ms";
+            }
+
+            @Override
+            public Number fromString(String string) {
+                return 0;
+            }
+        });
         lineChart.setAnimated(false);
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
         final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
 
 
-
+        calcButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                GNA = gna.getValue();
+                GK = gk.getValue();
+                BETA = beta.getValue();
+                GAMMA = gamma.getValue();
+                V_STIM = v_stim.getValue();
+                C = c.getValue();
+            }
+        });
 
         //******************GET DATA******************//
         GNA = gna.getValue();
@@ -80,6 +105,17 @@ public class Controller {
         //*************CALCULATE AND GRAPH*************//
         timeline.getKeyFrames()
                 .add(new KeyFrame(Duration.millis(2), (ActionEvent actionEvent) -> {
+                    calcButton.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            GNA = gna.getValue();
+                            GK = gk.getValue();
+                            BETA = beta.getValue();
+                            GAMMA = gamma.getValue();
+                            V_STIM = v_stim.getValue();
+                            C = c.getValue();
+                        }
+                    });
                         double floor = iteration / 3000;
                         double stinum = Math.floor(floor);
                         Double stimt = 3000 + 3000 * (stinum - 1);

@@ -42,9 +42,9 @@
    <left>
       <VBox spacing="2.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Sodium" />
+            <Label text="GNA" />
             <Slider id="gna" fx:id="gna" blockIncrement="0.01" max="10.0" value="0.9" />
-            <Label layoutX="10.0" layoutY="10.0" text="Potassium" />
+            <Label layoutX="10.0" layoutY="10.0" text="GK" />
             <Slider id="gk" fx:id="gk" blockIncrement="0.01" layoutX="10.0" layoutY="186.0" max="10.0" value="1.1" />
             <Label layoutX="10.0" layoutY="45.0" text="Beta" />
             <Slider id="beta" fx:id="beta" blockIncrement="0.01" layoutX="10.0" layoutY="190.0" max="1.0" value="0.6" />
@@ -71,7 +71,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <LineChart id="lineChart" fx:id="lineChart" cache="true" cacheHint="QUALITY" title="Derek wuz here lol" animated="false">
+            <LineChart id="lineChart" fx:id="lineChart" cache="true" cacheHint="QUALITY" title="Fitz-Hugh Nagumo Model" animated="false">
               <xAxis>
                 <NumberAxis fx:id="xAxis" side="BOTTOM" tickUnit="2000"/>
               </xAxis>
