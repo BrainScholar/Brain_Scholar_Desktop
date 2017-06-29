@@ -1,10 +1,17 @@
 package sample;
 
+import javafx.animation.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.CacheHint;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.util.Duration;
 
 import java.awt.*;
 
@@ -13,8 +20,12 @@ public class Controller {
     public Label  chartLabel;
     public Slider gna, gk, beta, gamma, v_stim, c;
     public LineChart<Number,Number> lineChart;
+    public NumberAxis xAxis, yAxis;
+    public Animation graphAnimation;
     public int iteration;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
+    public Timeline timeline = new Timeline();
+    private SequentialTransition animation;
 
     public void updateGraph(){
         //*******VARIABLE LABEL************//
@@ -22,9 +33,18 @@ public class Controller {
                 " GAMMA = "+ gamma.getValue()+" V STIM = "+ v_stim.getValue()+ " C = " + c.getValue());
         //********************************//
 
-
         //Declare a new series and assign it to the graph
-        XYChart.Series<Number, Number> series =  new XYChart.Series<Number, Number>();
+        yAxis.setLowerBound(-5);
+        yAxis.setUpperBound(5);
+        xAxis.setLowerBound(0);
+        xAxis.setUpperBound(10000);
+        yAxis.setAutoRanging(false);
+        xAxis.setForceZeroInRange(false);
+        lineChart.setAnimated(false);
+        ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
+        final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
+
+
 
 
         //******************GET DATA******************//
@@ -56,29 +76,41 @@ public class Controller {
 
 
         //*************CALCULATE AND GRAPH*************//
-        for (int i = 0; i < 9998; i++) {
-            double floor = i / 3000;
-            double stinum = Math.floor(floor);
-            Double stimt = 3000 + 3000 * (stinum - 1);
-            Integer intstim = stimt.intValue();
-            //increment constantly to reflect the onward march of time
-            iteration++;
+        timeline.getKeyFrames()
+                .add(new KeyFrame(Duration.millis(2), (ActionEvent actionEvent) -> {
+                        double floor = iteration / 3000;
+                        double stinum = Math.floor(floor);
+                        Double stimt = 3000 + 3000 * (stinum - 1);
+                        Integer intstim = stimt.intValue();
 
-            f[i] = v[i] * (1 - ((v[i] * v[i]) / 3));
-            v[i + 1] = 1 / C * (GNA * f[i] - GK * u[i]) * del_t + v[i];
-            if (intstim.equals(i)) {
-                v[i + 1] = v[i + 1] + V_STIM;
-            }
-            u[i + 1] = (v[i] + BETA - GAMMA * u[i]) * del_t + u[i];
+                        f[iteration%6000] = v[iteration%6000] * (1 - ((v[iteration%6000] * v[iteration%6000]) / 3));
+                        v[(iteration + 1)%6000] = 1 / C * (GNA * f[iteration%6000] - GK * u[iteration%6000]) * del_t + v[iteration%6000];
+                        if (intstim.equals(iteration)) {
+                            v[(iteration + 1)%6000] = v[(iteration + 1)%6000] + V_STIM;
+                        }
+                        u[(iteration + 1)%6000] = (v[iteration%6000] + BETA - GAMMA * u[iteration%6000]) * del_t + u[iteration%6000];
+                        series.getData().add(new XYChart.Data<Number, Number>(iteration, v[iteration%6000]));
+                        if(iteration > 10001) {
+                            series.getData().remove(0);
+                        }
+                        if(iteration > 10000) {
+                            xAxis.setLowerBound(xAxis.getLowerBound() + 1);
+                            xAxis.setUpperBound(xAxis.getUpperBound() + 1);
+                            System.out.println(iteration);
+                        }
+                        iteration++;
 
-            series.getData().add(new XYChart.Data<Number, Number>(iteration, v[/*iteration % 6000*/iteration]));
-        }
+                }));
         //********************************************//
 
         //Gets rid of the circles on the thousands of points. Cleans up the graph.
         lineChart.setCreateSymbols(false);
-        
+        lineChart.setCache(true);
+        lineChart.setCacheHint(CacheHint.SPEED);
         lineChart.getData().clear();
-        lineChart.getData().addAll(series);
+        timeline.setCycleCount(graphAnimation.INDEFINITE);
+        timeline.play();
+        observable.add(series);
+        lineChart.getData().addAll(observable);
     }
 }

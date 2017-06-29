@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -52,7 +51,7 @@
             <Label layoutX="10.0" layoutY="80.0" text="Gamma" />
             <Slider id="gamma" fx:id="gamma" blockIncrement="0.01" layoutX="10.0" layoutY="194.0" max="2.0" value="1.0" />
             <Label layoutX="10.0" layoutY="115.0" text="V Stim" />
-            <Slider id="v_stim" fx:id="v_stim" blockIncrement="0.01" layoutX="10.0" layoutY="27.0" max="5" value="0.9" />
+            <Slider id="v_stim" fx:id="v_stim" blockIncrement="0.01" layoutX="10.0" layoutY="27.0" max="5.0" value="0.9" />
             <Label layoutX="10.0" layoutY="150.0" text="C" />
             <Slider id="c" fx:id="c" blockIncrement="0.001" layoutX="10.0" layoutY="198.0" max="0.05" value="0.025" />
             <Button id="calcButton" fx:id="calcButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateGraph" text="Calculate" />
@@ -72,12 +71,12 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <LineChart id="lineChart" fx:id="lineChart" title="Derek wuz here lol">
+            <LineChart id="lineChart" fx:id="lineChart" cache="true" cacheHint="QUALITY" title="Derek wuz here lol" animated="false">
               <xAxis>
-                <NumberAxis side="BOTTOM" />
+                <NumberAxis fx:id="xAxis" side="BOTTOM" tickUnit="2000"/>
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxis" side="LEFT" lowerBound="-5" upperBound="5" tickUnit="1" />
               </yAxis>
             </LineChart>
             <Label fx:id="chartLabel" text="Label For the Chart (Fixt it Later)" />
