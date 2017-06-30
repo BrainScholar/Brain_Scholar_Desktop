@@ -38,8 +38,9 @@ public class Controller {
         //********************************//
 
         //Declare a new series and assign it to the graph
-        yAxis.setLowerBound(-5);
-        yAxis.setUpperBound(5);
+        yAxis.setLowerBound(-100);
+        yAxis.setUpperBound(10);
+        yAxis.setTickUnit(10);
         xAxis.setLowerBound(0);
         xAxis.setUpperBound(10000);
         yAxis.setAutoRanging(false);
@@ -104,7 +105,7 @@ public class Controller {
 
         //*************CALCULATE AND GRAPH*************//
         timeline.getKeyFrames()
-                .add(new KeyFrame(Duration.millis(2), (ActionEvent actionEvent) -> {
+                .add(new KeyFrame(Duration.millis(1), (ActionEvent actionEvent) -> {
                     calcButton.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
@@ -127,14 +128,15 @@ public class Controller {
                             v[(iteration + 1)%6000] = v[(iteration + 1)%6000] + V_STIM;
                         }
                         u[(iteration + 1)%6000] = (v[iteration%6000] + BETA - GAMMA * u[iteration%6000]) * del_t + u[iteration%6000];
-                        series.getData().add(new XYChart.Data<Number, Number>(iteration, v[iteration%6000]));
+                        double currentMin= -2.2, currentMax=2.2, minScaled=-90, maxScaled=10, scaledValue;
+                        scaledValue= (maxScaled-minScaled)*(v[iteration%6000]-currentMin)/(currentMax-currentMin)+minScaled;
+                        series.getData().add(new XYChart.Data<Number, Number>(iteration, scaledValue));
                         if(iteration > 10001) {
                             series.getData().remove(0);
                         }
                         if(iteration > 10000) {
                             xAxis.setLowerBound(xAxis.getLowerBound() + 1);
                             xAxis.setUpperBound(xAxis.getUpperBound() + 1);
-                            System.out.println(iteration);
                         }
                         iteration++;
 
