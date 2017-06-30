@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -72,12 +71,12 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <LineChart id="lineChart" fx:id="lineChart" title="Replace With Proper Title for the Graph">
+            <LineChart id="lineChart" fx:id="lineChart" alternativeRowFillVisible="false" cache="true" cacheHint="SPEED" centerShape="false" createSymbols="false" depthTest="ENABLE" horizontalZeroLineVisible="false" scaleShape="false" title="Replace With Proper Title for the Graph" verticalZeroLineVisible="false">
               <xAxis>
-                <NumberAxis side="BOTTOM" />
+                <NumberAxis fx:id="xAxis" side="BOTTOM" animated="true"/>
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxis" side="LEFT" />
               </yAxis>
             </LineChart>
             <Label fx:id="chartLabel" text="Label For the Chart (Fixt it Later)" />
