@@ -43,7 +43,7 @@
         <HBox>
             <VBox centerShape="false">
                 <padding>
-                    <Insets top="25" right="25" bottom="25" left="25"/>
+                    <Insets bottom="25" left="25" right="25" top="25" />
                 </padding>
                 <children>
                     <Label id="FHN" text="Fitz-Hugh Nagumo Model" />
@@ -51,7 +51,7 @@
             </VBox>
             <VBox centerShape="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER_LEFT">
                 <padding>
-                    <Insets top="25" right="0" bottom="25" left="0"/>
+                    <Insets bottom="25" left="0" right="0" top="25" />
                 </padding>
                 <children>
                     <Label text="GNA" />
@@ -65,7 +65,7 @@
                     <Label layoutX="10.0" layoutY="115.0" text="V Stim" />
                     <Slider id="v_stim" fx:id="v_stim" blockIncrement="0.01" layoutX="10.0" layoutY="27.0" max="5.0" value="0.9" />
                     <Label layoutX="10.0" layoutY="150.0" text="C" />
-                    <Slider id="c" fx:id="c" blockIncrement="0.001" layoutX="10.0" layoutY="198.0" max="0.05" value="0.025" />
+                    <Slider fx:id="c" blockIncrement="0.001" layoutX="10.0" layoutY="198.0" max="0.05" style="-fx-region-border: #000000;" value="0.025" />
                     <Button id="calcButton" fx:id="calcButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateGraph" text="Calculate" />
                 </children>
             </VBox>
@@ -81,7 +81,7 @@
     <center>
         <VBox focusTraversable="true" scaleShape="true" BorderPane.alignment="CENTER">
             <children>
-                <LineChart id="lineChart" fx:id="lineChart" animated="false" cache="true" cacheHint="QUALITY" focusTraversable="true" title="Fitz-Hugh Nagumo Model">
+                <LineChart id="lineChart" fx:id="lineChart" animated="false" cache="true" cacheHint="QUALITY" focusTraversable="true" stylesheets="@Style.css" title="Fitz-Hugh Nagumo Model">
                     <xAxis>
                         <NumberAxis side="BOTTOM" tickUnit="2000" fx:id="xAxis" />
                     </xAxis>

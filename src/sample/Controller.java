@@ -60,7 +60,7 @@ public class Controller {
         });
         lineChart.setAnimated(false);
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
-        lineChart.setStyle(".default-color0.chart-series-line { -fx-stroke: #e9967a; }");
+        lineChart.setStyle(".chart-series-line");
         final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
 
 
@@ -106,7 +106,7 @@ public class Controller {
 
         //*************CALCULATE AND GRAPH*************//
         timeline.getKeyFrames()
-                .add(new KeyFrame(Duration.millis(1), (ActionEvent actionEvent) -> {
+                .add(new KeyFrame(Duration.millis(2), (ActionEvent actionEvent) -> {
                     calcButton.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
