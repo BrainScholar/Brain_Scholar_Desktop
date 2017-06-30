@@ -28,7 +28,7 @@ public class Controller {
     public int iteration;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
     public Timeline timeline = new Timeline();
-    public DecimalFormat df3 = new DecimalFormat(".###");
+    public DecimalFormat df2 = new DecimalFormat(".##");
 
 
     public void updateGraph(){
@@ -39,7 +39,7 @@ public class Controller {
 
         //Declare a new series and assign it to the graph
         yAxis.setLowerBound(-100);
-        yAxis.setUpperBound(10);
+        yAxis.setUpperBound(20);
         yAxis.setTickUnit(10);
         xAxis.setLowerBound(0);
         xAxis.setUpperBound(10000);
@@ -50,7 +50,7 @@ public class Controller {
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                return df3.format(object.doubleValue() * 0.001) + "ms";
+                return df2.format(object.doubleValue() * 0.001) + "ms";
             }
 
             @Override
@@ -60,6 +60,7 @@ public class Controller {
         });
         lineChart.setAnimated(false);
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
+        lineChart.setStyle(".default-color0.chart-series-line { -fx-stroke: #e9967a; }");
         final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
 
 
