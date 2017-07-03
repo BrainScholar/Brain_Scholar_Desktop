@@ -6,8 +6,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.awt.*;
+import java.awt.Image;
 
 public class Main extends Application {
 
@@ -15,6 +19,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Brain Scholar Desktop");
+        primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("BS_Icon.png")));
+        //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("BS_Icon.png")));
         primaryStage.setScene(new Scene(root, 1080, 800));
         primaryStage.show();
 
