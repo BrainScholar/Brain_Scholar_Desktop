@@ -10,23 +10,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
+import java.text.DecimalFormat;
+
 public class Controller {
     public Button calcButton;
-    public Label  chartLabel;
+    public Label  chartLabel, descActivities;
     public Slider gna, gk, beta, gamma, v_stim, c;
     public NumberAxis xAxis, yAxis;
     public LineChart<Number,Number> lineChart;
     private double GNA, GK, BETA, GAMMA, V_STIM, C;
     private int iteration;
     public void updateGraph(){
-        //*******VARIABLE LABEL************//
-        chartLabel.setText("GNA ="+gna.getValue()+" GK = "+gk.getValue()+" BETA = "+beta.getValue()+
-                " GAMMA = "+ gamma.getValue()+" V STIM = "+ v_stim.getValue()+ " C = " + c.getValue());
-        //********************************//
-
 
         //Declare a new series and assign it to the graph
         XYChart.Series<Number, Number> series =  new XYChart.Series<Number, Number>();
+        series.setName("Action Potential Data Series");
         yAxis.setLowerBound(-95);
         yAxis.setUpperBound(15);
         xAxis.setLowerBound(0);
@@ -60,7 +58,12 @@ public class Controller {
         GAMMA = gamma.getValue();
         V_STIM = v_stim.getValue();
         C = c.getValue();
+        DecimalFormat df= new DecimalFormat("#.###");
+        chartLabel.setText("GNA ="+ df.format(gna.getValue())+" GK = "+df.format(gk.getValue())+" BETA = "+df.format(beta.getValue())+
+                " GAMMA = "+ df.format(gamma.getValue())+" V STIM = "+ df.format(v_stim.getValue())+ " C = " + df.format(c.getValue()));
+        descActivities.setText("Graph generating");
         //********************************************//
+
         new Thread(()->{
             try {
 
@@ -74,10 +77,13 @@ public class Controller {
                         GAMMA = gamma.getValue();
                         V_STIM = v_stim.getValue();
                         C = c.getValue();
+                        DecimalFormat df= new DecimalFormat("#.###");
+                        chartLabel.setText("GNA ="+ df.format(gna.getValue())+" GK = "+df.format(gk.getValue())+
+                                " BETA = "+df.format(beta.getValue())+" GAMMA = "+ df.format(gamma.getValue())+
+                                " V STIM = "+ df.format(v_stim.getValue())+ " C = " + df.format(c.getValue()));
                         //********************************************//
                     }
                 });
-                //Thread.sleep(1000);
                 for (int i = 0; true; i = (i + 1)%6000) {      // condition is always true so the graph
                     // would flow until app terminates
                     double floor = i / 3000;
@@ -111,6 +117,7 @@ public class Controller {
                     iteration++;
                     Thread.sleep(1);
                 }
+
             }
             catch (InterruptedException e){
                // e.printStackTrace();

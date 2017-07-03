@@ -64,20 +64,23 @@
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Label text="Description of Activities (Fix it later)" />
+            <Label fx:id="descActivities" text="Ready to generate graph" />
          </children>
       </HBox>
    </bottom>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <LineChart id="lineChart" fx:id="lineChart" alternativeRowFillVisible="false" cache="true" cacheHint="SPEED" centerShape="false" createSymbols="false" depthTest="ENABLE" horizontalZeroLineVisible="false" scaleShape="false" title="Replace With Proper Title for the Graph" verticalZeroLineVisible="false">
+            <LineChart id="lineChart" fx:id="lineChart" alternativeRowFillVisible="false" cache="true" cacheHint="SPEED" centerShape="false" createSymbols="false" depthTest="ENABLE" horizontalZeroLineVisible="false" scaleShape="false" title="Fitz-Hugh Nagumo Model" verticalZeroLineVisible="false">
               <xAxis>
-                <NumberAxis fx:id="xAxis" side="BOTTOM" animated="true"/>
+                <NumberAxis animated="true" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" />
               </yAxis>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </LineChart>
             <Label fx:id="chartLabel" text="Label For the Chart (Fixt it Later)" />
          </children>
