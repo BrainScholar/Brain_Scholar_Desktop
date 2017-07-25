@@ -22,21 +22,21 @@
     <top>
         <HBox BorderPane.alignment="CENTER_LEFT">
             <children>
-                <MenuBar stylesheets="@Style.css" maxWidth="1.7976931348623157E308" prefWidth="2160.0">
+                <MenuBar maxWidth="1.7976931348623157E308" prefWidth="2160.0" styleClass="menu-bar" stylesheets="@Style.css">
                     <menus>
-                        <Menu styleClass="menu" mnemonicParsing="false" text="File">
+                        <Menu id="File" mnemonicParsing="true" styleClass="menu" text="File">
                             <items>
-                                <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
+                                <MenuItem mnemonicParsing="true" styleClass="menu-item" text="Close" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu id="Edit" mnemonicParsing="true" styleClass="menu" text="Edit">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <MenuItem mnemonicParsing="true" styleClass="menu-item" text="Delete" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
+                        <Menu id="Help" mnemonicParsing="true" styleClass="menu" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
+                                <MenuItem mnemonicParsing="true" text="About" />
                             </items>
                         </Menu>
                     </menus>
@@ -113,7 +113,7 @@
                             <Font name="Helvetica Neue Thin" size="13.0" />
                         </font>
                     </Label>
-                    <Slider id="gna" fx:id="gna" blockIncrement="0.01" max="10.0" value="0.9" />
+                    <Slider id="gna" fx:id="gna" blockIncrement="0.01" max="10.0" stylesheets="@Style.css" value="0.9" />
                     <Label centerShape="false" layoutX="10.0" layoutY="10.0" scaleShape="false" text="GK">
                         <font>
                             <Font name="Helvetica Neue Thin" size="13.0" />

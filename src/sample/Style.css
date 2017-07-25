@@ -3,17 +3,24 @@
 }
 
 .calcButton{
+    -fx-border-color: transparent;
+    -fx-border-width: 0.5px;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.calcButton:hover{
     -fx-border-color: #232b2b;
-    -fx-border-width: 1px;
+    -fx-border-width: 0.5px;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
 }
 
 .calcButton:pressed{
-    -fx-border-color: #232b2b;
-    -fx-border-width: 1px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0.5px;
     -fx-background-radius: 0;
-    -fx-background-color: transparent;
+    -fx-background-color: #232b2b;
     -fx-text-fill: #FFFFFF;
 }
 
@@ -24,27 +31,45 @@
     -fx-background-color: transparent;
     -fx-text-fill: #FFFFFF;
 }
+.moduleButton:hover{
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0;
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
+}
+
 .moduleButton:pressed{
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-radius: 0;
-    -fx-background-color: transparent;
-    -fx-text-fill: #505050;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #232b2b;
+}
+
+.menu-bar{
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
 }
 
 .menu:hover{
-    -fx-background-color: #232b2b;
+    -fx-background-color: #FFFFFF;
+}
+
+.menu:hover .label{
+    -fx-text-fill: #232b2b;
+}
+
+.menu .label{
     -fx-text-fill: #FFFFFF;
 }
 
-.menu:pressed{
-    -fx-background-color: #232b2b;
-    -fx-text-fill: #FFFFFF;
+.menu:showing .label{
+    -fx-text-fill: #232b2b;
 }
 
 .menu:showing{
-    -fx-background-color: #232b2b;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #FFFFFF;
 }
 
 .menuBox{
@@ -54,14 +79,21 @@
 
 .menu-item{
     -fx-background-color: #FFFFFF;
+}
+
+.menu-item .label{
     -fx-text-fill: #232b2b;
 }
+
 .menu-item:hover{
     -fx-background-color: #232b2b;
+}
+
+.menu-item:hover .label{
     -fx-text-fill: #FFFFFF;
 }
 
-.buttonPressed{
+.calcButton:pressed{
     -fx-text-fill: #FFFFFF;
 }
 
@@ -72,6 +104,7 @@
 .scroll-pane{
     -fx-background-color: #FFFFFF;
 }
+
 .slider{
     -fx-progress-color: black;
 }
