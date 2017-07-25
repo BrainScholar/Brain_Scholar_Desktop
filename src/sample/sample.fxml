@@ -8,79 +8,216 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </children>
-      </VBox>
-   </top>
-   <left>
-      <VBox spacing="2.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="GNA" />
-            <Slider id="gna" fx:id="gna" blockIncrement="0.01" max="10.0" value="0.9" />
-            <Label layoutX="10.0" layoutY="10.0" text="GK" />
-            <Slider id="gk" fx:id="gk" blockIncrement="0.01" layoutX="10.0" layoutY="186.0" max="10.0" value="1.1" />
-            <Label layoutX="10.0" layoutY="45.0" text="Beta" />
-            <Slider id="beta" fx:id="beta" blockIncrement="0.01" layoutX="10.0" layoutY="190.0" max="1.0" value="0.6" />
-            <Label layoutX="10.0" layoutY="80.0" text="Gamma" />
-            <Slider id="gamma" fx:id="gamma" blockIncrement="0.01" layoutX="10.0" layoutY="194.0" max="2.0" value="1.0" />
-            <Label layoutX="10.0" layoutY="115.0" text="V Stim" />
-            <Slider id="v_stim" fx:id="v_stim" blockIncrement="0.01" layoutX="10.0" layoutY="27.0" max="5.0" value="0.9" />
-            <Label layoutX="10.0" layoutY="150.0" text="C" />
-            <Slider id="c" fx:id="c" blockIncrement="0.001" layoutX="10.0" layoutY="198.0" max="0.05" value="0.025" />
-            <Button id="calcButton" fx:id="calcButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateGraph" text="Calculate" />
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <bottom>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Description of Activities (Fix it later)" />
-         </children>
-      </HBox>
-   </bottom>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <LineChart id="lineChart" fx:id="lineChart" cache="true" cacheHint="QUALITY" title="Fitz-Hugh Nagumo Model" animated="false">
-              <xAxis>
-                <NumberAxis fx:id="xAxis" side="BOTTOM" tickUnit="2000"/>
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" lowerBound="-5" upperBound="5" tickUnit="1" />
-              </yAxis>
-            </LineChart>
-            <Label fx:id="chartLabel" text="Label For the Chart (Fixt it Later)" />
-         </children>
-      </VBox>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" styleClass="BorderPane" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <top>
+        <HBox BorderPane.alignment="CENTER_LEFT">
+            <children>
+                <MenuBar stylesheets="@Style.css" maxWidth="1.7976931348623157E308" prefWidth="2160.0">
+                    <menus>
+                        <Menu styleClass="menu" mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <HBox>
+            <VBox centerShape="false" styleClass="menuBox" stylesheets="@Style.css">
+                <padding>
+                    <Insets bottom="25" left="25" right="25" top="25" />
+                </padding>
+                <children>
+                    <ImageView id="menuLogo" fx:id="menuLogo" fitHeight="192.0" fitWidth="192.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../menuLogo192x192.png" />
+                        </image>
+                    </ImageView>
+                    <Separator prefWidth="192">
+                        <padding>
+                            <Insets bottom="10" top="10" />
+                        </padding>
+                    </Separator>
+                    <Button id="fhnModuleButton" fx:id="fhnModuleButton" prefHeight="35.0" prefWidth="201.0" styleClass="moduleButton" stylesheets="@Style.css" text="FitzHugh-Nagumo">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="18.0" />
+                        </font>
+                    </Button>
+                    <Separator prefWidth="192">
+                        <padding>
+                            <Insets bottom="10" top="10" />
+                        </padding>
+                    </Separator>
+                    <Button prefHeight="35.0" prefWidth="201.0" styleClass="moduleButton" stylesheets="@Style.css" text="Some Other Module">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="18.0" />
+                        </font>
+                    </Button>
+                    <Separator prefWidth="192">
+                        <padding>
+                            <Insets bottom="10" top="10" />
+                        </padding>
+                    </Separator>
+                    <Button prefHeight="35.0" prefWidth="201.0" styleClass="moduleButton" stylesheets="@Style.css" text="Some Other Module">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="18.0" />
+                        </font>
+                    </Button>
+                    <Separator prefWidth="192">
+                        <padding>
+                            <Insets bottom="10" top="10" />
+                        </padding>
+                    </Separator>
+                    <Button prefHeight="35.0" prefWidth="201.0" styleClass="moduleButton" stylesheets="@Style.css" text="Some Other Module">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="18.0" />
+                        </font>
+                    </Button>
+                </children>
+            </VBox>
+            <VBox centerShape="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER_LEFT">
+                <padding>
+                    <Insets bottom="25" left="10" right="10" top="25" />
+                </padding>
+                <children>
+                    <Label text="GNA">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="gnaValue" text="0.90">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider id="gna" fx:id="gna" blockIncrement="0.01" max="10.0" value="0.9" />
+                    <Label centerShape="false" layoutX="10.0" layoutY="10.0" scaleShape="false" text="GK">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="gkValue" text="1.10">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider id="gk" fx:id="gk" blockIncrement="0.01" layoutX="10.0" layoutY="186.0" max="10.0" value="1.1" />
+                    <Label layoutX="10.0" layoutY="45.0" text="Beta">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="betaValue" text="0.60">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider id="beta" fx:id="beta" blockIncrement="0.01" layoutX="10.0" layoutY="190.0" max="1.0" value="0.6" />
+                    <Label layoutX="10.0" layoutY="80.0" text="Gamma">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="gammaValue" text="1.00">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider id="gamma" fx:id="gamma" blockIncrement="0.01" layoutX="10.0" layoutY="194.0" max="2.0" value="1.0" />
+                    <Label layoutX="10.0" layoutY="115.0" text="V Stim">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="v_stimValue" text="0.90">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider id="v_stim" fx:id="v_stim" blockIncrement="0.01" layoutX="10.0" layoutY="27.0" max="5.0" value="0.9" />
+                    <Label layoutX="10.0" layoutY="150.0" text="C">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="cValue" text="0.025">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider fx:id="c" blockIncrement="0.001" layoutX="10.0" layoutY="198.0" max="0.05" value="0.025" />
+               <Separator prefWidth="200.0">
+                  <padding>
+                     <Insets bottom="10" top="10.0" />
+                  </padding>
+               </Separator>
+                    <Button id="calcButton" fx:id="calcButton" alignment="CENTER" mnemonicParsing="false" onAction="#updateGraph" prefHeight="26.0" prefWidth="200.0" styleClass="calcButton" stylesheets="@Style.css" text="Calculate">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+                    </Button>
+                </children>
+            </VBox>
+        </HBox>
+    </left>
+    <bottom>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Description of Activities (Fix it later)" />
+            </children>
+        </HBox>
+    </bottom>
+    <center>
+        <VBox focusTraversable="true" scaleShape="true" BorderPane.alignment="CENTER">
+            <children>
+                <LineChart id="lineChart" fx:id="lineChart" animated="false" cache="true" cacheHint="QUALITY" focusTraversable="true" stylesheets="@Style.css">
+                    <xAxis>
+                        <NumberAxis side="BOTTOM" tickUnit="2000" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis" lowerBound="-5" side="LEFT" tickUnit="1" upperBound="5" />
+                    </yAxis>
+                </LineChart>
+                <Label fx:id="chartLabel" text="" />
+            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" vmax="1000.0">
+               <VBox.margin>
+                  <Insets left="25.0" right="15.0" />
+               </VBox.margin>
+               <content>
+                   <Label text="In here, we will put text and images to explain what is going on above and how it works. ">
+                       <font>
+                           <Font name="Helvetica Neue Thin" size="13.0" />
+                       </font>
+                   </Label>
+               </content>
+            </ScrollPane>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>
