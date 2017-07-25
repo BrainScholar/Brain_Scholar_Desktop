@@ -1,3 +1,77 @@
 .chart-series-line {
     -fx-stroke: #3399CC;
 }
+
+.calcButton{
+    -fx-border-color: #232b2b;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.calcButton:pressed{
+    -fx-border-color: #232b2b;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+}
+
+.moduleButton{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+}
+.moduleButton:pressed{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #505050;
+}
+
+.menu:hover{
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu:pressed{
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu:showing{
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menuBox{
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu-item{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #232b2b;
+}
+.menu-item:hover{
+    -fx-background-color: #232b2b;
+    -fx-text-fill: #FFFFFF;
+}
+
+.buttonPressed{
+    -fx-text-fill: #FFFFFF;
+}
+
+.BorderPane{
+    -fx-background-color: #FFFFFF;
+}
+
+.scroll-pane{
+    -fx-background-color: #FFFFFF;
+}
+.slider{
+    -fx-progress-color: black;
+}

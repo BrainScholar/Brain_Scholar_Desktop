@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.animation.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -20,7 +24,7 @@ import java.text.DecimalFormat;
 
 public class Controller {
     public Button calcButton;
-    public Label  chartLabel;
+    public Label  chartLabel, gnaValue, gkValue, betaValue, gammaValue, v_stimValue, cValue;
     public Slider gna, gk, beta, gamma, v_stim, c;
     public LineChart<Number,Number> lineChart;
     public NumberAxis xAxis, yAxis;
@@ -28,26 +32,31 @@ public class Controller {
     public int iteration;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
     public Timeline timeline = new Timeline();
+    //Use this format to set the amount of decimal places we want to show on our x-axis(time in this case) as we go
     public DecimalFormat df2 = new DecimalFormat(".##");
 
 
-    public void updateGraph(){
-        //*******VARIABLE LABEL************//
-        chartLabel.setText("GNA ="+gna.getValue()+" GK = "+gk.getValue()+" BETA = "+beta.getValue()+
-                " GAMMA = "+ gamma.getValue()+" V STIM = "+ v_stim.getValue()+ " C = " + c.getValue());
-        //********************************//
 
-        //Declare a new series and assign it to the graph
+    public void updateGraph(){
+        
+        //*********************************GRAPH SETUP*********************************//
+        //Set the boundaries of the viewport
         yAxis.setLowerBound(-100);
         yAxis.setUpperBound(20);
         yAxis.setTickUnit(10);
         xAxis.setLowerBound(0);
         xAxis.setUpperBound(10000);
+        //Turn off auto ranging so that it doesn't zoom and scale weird
         yAxis.setAutoRanging(false);
         xAxis.setForceZeroInRange(false);
         xAxis.setAutoRanging(false);
+        //We make our x-axis/time values visible per 2000 values (or 2ms)
         xAxis.setTickUnit(2000);
+
+        //*****************LABEL FORMATTER*************************//
         xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            //We adjust our x values to milliseconds by dividing by 1000 or multiplying by 0.001
+            //Then, we add our decimal format of 2 places (declared above) and add "ms" to the end
             @Override
             public String toString(Number object) {
                 return df2.format(object.doubleValue() * 0.001) + "ms";
@@ -58,15 +67,77 @@ public class Controller {
                 return 0;
             }
         });
+        //********************************************************//
+
         lineChart.setAnimated(false);
+        //Declare a new series and assign it to the graph
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
         lineChart.setStyle(".chart-series-line");
         final XYChart.Series<Number,Number> series =  new XYChart.Series<>();
+        //**************************************************************************//
 
 
+
+        //*********************SLIDER LABELS*************************//
+        //We set the text in the labels to the formatted slider values
+        gnaValue.setText(String.format("%.2f", gna.getValue()));
+        gkValue.setText(String.format("%.2f", gk.getValue()));
+        betaValue.setText(String.format("%.2f", beta.getValue()));
+        gammaValue.setText(String.format("%.2f", gamma.getValue()));
+        v_stimValue.setText(String.format("%.2f", v_stim.getValue()));
+        cValue.setText(String.format("%.3f", c.getValue()));
+
+        //With this method, we change the text in the label with every value change of the slider
+        gna.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                gnaValue.setText(String.format("%.2f", gna.getValue()));
+            }
+        });
+
+        gk.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                gkValue.setText(String.format("%.2f", gk.getValue()));
+            }
+        });
+
+        beta.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                betaValue.setText(String.format("%.2f", beta.getValue()));
+            }
+        });
+
+        gamma.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                gammaValue.setText(String.format("%.2f", gamma.getValue()));
+            }
+        });
+
+        v_stim.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                v_stimValue.setText(String.format("%.2f", v_stim.getValue()));
+            }
+        });
+
+        c.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                cValue.setText(String.format("%.3f", c.getValue()));
+            }
+        });
+        //***************************************************//
+
+
+        //*****************CHANGE VALUES*********************//
         calcButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //Here, we pass the values of all the sliders to the variables above when the user clicks the "Calculate" button.
+                //This overrides the previous values graphed
                 GNA = gna.getValue();
                 GK = gk.getValue();
                 BETA = beta.getValue();
@@ -75,6 +146,8 @@ public class Controller {
                 C = c.getValue();
             }
         });
+        //*************************************************//
+
 
         //******************GET DATA******************//
         GNA = gna.getValue();
@@ -110,36 +183,45 @@ public class Controller {
                     calcButton.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
+                            //***********GET DATA***********//
+                            //Get data from sliders
                             GNA = gna.getValue();
                             GK = gk.getValue();
                             BETA = beta.getValue();
                             GAMMA = gamma.getValue();
                             V_STIM = v_stim.getValue();
                             C = c.getValue();
+                            //*****************************//
                         }
                     });
-                        double floor = iteration / 3000;
-                        double stinum = Math.floor(floor);
-                        Double stimt = 3000 + 3000 * (stinum - 1);
-                        Integer intstim = stimt.intValue();
 
-                        f[iteration%6000] = v[iteration%6000] * (1 - ((v[iteration%6000] * v[iteration%6000]) / 3));
-                        v[(iteration + 1)%6000] = 1 / C * (GNA * f[iteration%6000] - GK * u[iteration%6000]) * del_t + v[iteration%6000];
-                        if (intstim.equals(iteration)) {
-                            v[(iteration + 1)%6000] = v[(iteration + 1)%6000] + V_STIM;
-                        }
-                        u[(iteration + 1)%6000] = (v[iteration%6000] + BETA - GAMMA * u[iteration%6000]) * del_t + u[iteration%6000];
-                        double currentMin= -2.2, currentMax=2.2, minScaled=-90, maxScaled=10, scaledValue;
-                        scaledValue= (maxScaled-minScaled)*(v[iteration%6000]-currentMin)/(currentMax-currentMin)+minScaled;
-                        series.getData().add(new XYChart.Data<Number, Number>(iteration, scaledValue));
-                        if(iteration > 10001) {
-                            series.getData().remove(0);
-                        }
-                        if(iteration > 10000) {
-                            xAxis.setLowerBound(xAxis.getLowerBound() + 1);
-                            xAxis.setUpperBound(xAxis.getUpperBound() + 1);
-                        }
-                        iteration++;
+                    // The equations for FitzHugh-Nagumo dynamic system are calculated on time unit i
+                    // Mod function used to simulate circular array
+                    // Size 6000 found out (after trial and error) to be ideal size even for low spec android devices
+                    double floor = iteration / 3000;
+                    double stinum = Math.floor(floor);
+                    Double stimt = 3000 + 3000 * (stinum - 1);
+                    Integer intstim = stimt.intValue();
+
+                    f[iteration%6000] = v[iteration%6000] * (1 - ((v[iteration%6000] * v[iteration%6000]) / 3));
+                    v[(iteration + 1)%6000] = 1 / C * (GNA * f[iteration%6000] - GK * u[iteration%6000]) * del_t + v[iteration%6000];
+                    if (intstim.equals(iteration)) {
+                        v[(iteration + 1)%6000] = v[(iteration + 1)%6000] + V_STIM;
+                    }
+                    u[(iteration + 1)%6000] = (v[iteration%6000] + BETA - GAMMA * u[iteration%6000]) * del_t + u[iteration%6000];
+                    double currentMin= -2.2, currentMax=2.2, minScaled=-90, maxScaled=10, scaledValue;
+                    scaledValue= (maxScaled-minScaled)*(v[iteration%6000]-currentMin)/(currentMax-currentMin)+minScaled;
+                    series.getData().add(new XYChart.Data<Number, Number>(iteration, scaledValue));
+                    if(iteration > 10001) {
+                        //After we reach 10000 iterations, it will remove the earliest data point with each new one
+                        series.getData().remove(0);
+                    }
+                    if(iteration > 10000) {
+                        //We adjust the viewport with every new point
+                        xAxis.setLowerBound(xAxis.getLowerBound() + 1);
+                        xAxis.setUpperBound(xAxis.getUpperBound() + 1);
+                    }
+                    iteration++;
 
                 }));
         //********************************************//
@@ -149,6 +231,7 @@ public class Controller {
         lineChart.setCache(true);
         lineChart.setCacheHint(CacheHint.SPEED);
         lineChart.getData().clear();
+        //Animation goes on forever and ever, Amen.
         timeline.setCycleCount(graphAnimation.INDEFINITE);
         timeline.play();
         observable.add(series);
