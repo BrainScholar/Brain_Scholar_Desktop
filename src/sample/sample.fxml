@@ -169,7 +169,19 @@
                         </font>
                     </Label>
                     <Slider fx:id="c" blockIncrement="0.001" layoutX="10.0" layoutY="198.0" max="0.05" value="0.025" />
-               <Separator prefWidth="200.0">
+
+                    <Label layoutX="10.0" layoutY="150.0" text="Stim Rate">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="stimRateValue" text="0.025">
+                        <font>
+                            <Font name="Helvetica Neue Thin" size="13.0" />
+                        </font>
+                    </Label>
+                    <Slider fx:id="stimRate" blockIncrement="0" layoutX="10.0" layoutY="198.0" max="10000" value="3000" />
+                    <Separator prefWidth="200.0">
                   <padding>
                      <Insets bottom="10" top="10.0" />
                   </padding>

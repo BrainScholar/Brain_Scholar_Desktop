@@ -26,12 +26,12 @@ import java.text.DecimalFormat;
 public class Controller {
     public VBox sliderMenu, graphBox;
     public Button calcButton, someOtherModuleButton, fhnModuleButton;
-    public Label  chartLabel, gnaValue, gkValue, betaValue, gammaValue, v_stimValue, cValue;
-    public Slider gna, gk, beta, gamma, v_stim, c;
+    public Label  chartLabel, gnaValue, gkValue, betaValue, gammaValue, v_stimValue, cValue, stimRateValue;
+    public Slider gna, gk, beta, gamma, v_stim, c, stimRate;
     public LineChart<Number,Number> lineChart;
     public NumberAxis xAxis, yAxis;
     public Animation graphAnimation;
-    public int iteration;
+    public int iteration, STIMRATE;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
     public Timeline timeline = new Timeline();
     public ObservableList<XYChart.Series<Number, Number>> observable;
@@ -87,6 +87,7 @@ public class Controller {
         gammaValue.setText(String.format("%.2f", gamma.getValue()));
         v_stimValue.setText(String.format("%.2f", v_stim.getValue()));
         cValue.setText(String.format("%.3f", c.getValue()));
+        stimRateValue.setText(String.format("%.2f", stimRate.getValue()/1000));
 
         //With this method, we change the text in the label with every value change of the slider
         gna.valueProperty().addListener(new ChangeListener<Number>() {
@@ -130,6 +131,13 @@ public class Controller {
                 cValue.setText(String.format("%.3f", c.getValue()));
             }
         });
+
+        stimRate.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                stimRateValue.setText(String.format("%.2f", stimRate.getValue()/1000));
+            }
+        });
         //***************************************************//
 
         //*****************MODULE BUTTONS********************//
@@ -168,6 +176,7 @@ public class Controller {
                 GAMMA = gamma.getValue();
                 V_STIM = v_stim.getValue();
                 C = c.getValue();
+                STIMRATE = (int) stimRate.getValue();
             }
         });
         //*************************************************//
@@ -180,6 +189,7 @@ public class Controller {
         GAMMA = gamma.getValue();
         V_STIM = v_stim.getValue();
         C = c.getValue();
+        STIMRATE = (int) stimRate.getValue();
         //********************************************//
 
 
@@ -215,6 +225,7 @@ public class Controller {
                             GAMMA = gamma.getValue();
                             V_STIM = v_stim.getValue();
                             C = c.getValue();
+                            STIMRATE = (int) stimRate.getValue();
                             //*****************************//
                         }
                     });
@@ -222,15 +233,17 @@ public class Controller {
                     // The equations for FitzHugh-Nagumo dynamic system are calculated on time unit i
                     // Mod function used to simulate circular array
                     // Size 6000 found out (after trial and error) to be ideal size even for low spec android devices
-                    double floor = iteration / 3000;
+                    double floor = iteration / STIMRATE;
                     double stinum = Math.floor(floor);
-                    Double stimt = 3000 + 3000 * (stinum - 1);
+                    Double stimt = STIMRATE + STIMRATE * (stinum - 1);
                     Integer intstim = stimt.intValue();
 
                     f[iteration%6000] = v[iteration%6000] * (1 - ((v[iteration%6000] * v[iteration%6000]) / 3));
                     v[(iteration + 1)%6000] = 1 / C * (GNA * f[iteration%6000] - GK * u[iteration%6000]) * del_t + v[iteration%6000];
-                    if (intstim.equals(iteration)) {
+                    System.out.println(STIMRATE);
+                    if (iteration%STIMRATE == 0) {
                         v[(iteration + 1)%6000] = v[(iteration + 1)%6000] + V_STIM;
+                        System.out.println(STIMRATE);
                     }
                     u[(iteration + 1)%6000] = (v[iteration%6000] + BETA - GAMMA * u[iteration%6000]) * del_t + u[iteration%6000];
                     double currentMin= -2.2, currentMax=2.2, minScaled=-90, maxScaled=10, scaledValue;
