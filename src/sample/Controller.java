@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -23,7 +24,8 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 public class Controller {
-    public Button calcButton;
+    public VBox sliderMenu, graphBox;
+    public Button calcButton, someOtherModuleButton, fhnModuleButton;
     public Label  chartLabel, gnaValue, gkValue, betaValue, gammaValue, v_stimValue, cValue;
     public Slider gna, gk, beta, gamma, v_stim, c;
     public LineChart<Number,Number> lineChart;
@@ -32,13 +34,12 @@ public class Controller {
     public int iteration;
     public double GNA, GK, BETA, GAMMA, V_STIM, C;
     public Timeline timeline = new Timeline();
+    public ObservableList<XYChart.Series<Number, Number>> observable;
+    public XYChart.Series<Number,Number> series;
     //Use this format to set the amount of decimal places we want to show on our x-axis(time in this case) as we go
     public DecimalFormat df2 = new DecimalFormat(".##");
 
-
-
-    public void updateGraph(){
-        
+    public void initialize(){
         //*********************************GRAPH SETUP*********************************//
         //Set the boundaries of the viewport
         yAxis.setLowerBound(-100);
@@ -131,7 +132,30 @@ public class Controller {
         });
         //***************************************************//
 
+        //*****************MODULE BUTTONS********************//
+        //In here we can set what happens when the user clicks on the module buttons.
+        someOtherModuleButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                graphBox.setVisible(false);
+                sliderMenu.setVisible(false);
+            }
+        });
 
+
+        fhnModuleButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                graphBox.setVisible(true);
+                sliderMenu.setVisible(true);
+            }
+        });
+    }
+
+
+    public void updateGraph(){
+        observable = FXCollections.observableArrayList();
+        series =  new XYChart.Series<>();
         //*****************CHANGE VALUES*********************//
         calcButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

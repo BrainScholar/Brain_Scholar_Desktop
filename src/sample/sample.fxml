@@ -71,7 +71,7 @@
                             <Insets bottom="10" top="10" />
                         </padding>
                     </Separator>
-                    <Button prefHeight="35.0" prefWidth="201.0" styleClass="moduleButton" stylesheets="@Style.css" text="Some Other Module">
+                    <Button id="someOtherModuleButton" fx:id="someOtherModuleButton" prefHeight="35.0" prefWidth="201.0" styleClass="moduleButton" stylesheets="@Style.css" text="Some Other Module">
                         <font>
                             <Font name="Helvetica Neue Thin" size="18.0" />
                         </font>
@@ -98,7 +98,7 @@
                     </Button>
                 </children>
             </VBox>
-            <VBox centerShape="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER_LEFT">
+            <VBox fx:id="sliderMenu" centerShape="false" prefHeight="200.0" prefWidth="200.0" scaleShape="false" BorderPane.alignment="CENTER_LEFT">
                 <padding>
                     <Insets bottom="25" left="10" right="10" top="25" />
                 </padding>
@@ -194,7 +194,7 @@
         </HBox>
     </bottom>
     <center>
-        <VBox focusTraversable="true" scaleShape="true" BorderPane.alignment="CENTER">
+        <VBox fx:id="graphBox" focusTraversable="true" scaleShape="true" BorderPane.alignment="CENTER">
             <children>
                 <LineChart id="lineChart" fx:id="lineChart" animated="false" cache="true" cacheHint="QUALITY" focusTraversable="true" stylesheets="@Style.css">
                     <xAxis>
@@ -205,7 +205,7 @@
                     </yAxis>
                 </LineChart>
                 <Label fx:id="chartLabel" text="" />
-            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" vmax="1000.0">
+            <ScrollPane fx:id="tutorialScrollPane" hbarPolicy="NEVER" hmax="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" vmax="1000.0">
                <VBox.margin>
                   <Insets left="25.0" right="15.0" />
                </VBox.margin>
