@@ -26,7 +26,7 @@
                     <menus>
                         <Menu id="File" mnemonicParsing="true" styleClass="menu" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="true" styleClass="menu-item" text="Close" />
+                                <MenuItem mnemonicParsing="true" styleClass="menu-item" text="Exit" onAction="#exit" />
                             </items>
                         </Menu>
                         <Menu id="Edit" mnemonicParsing="true" styleClass="menu" text="Edit">

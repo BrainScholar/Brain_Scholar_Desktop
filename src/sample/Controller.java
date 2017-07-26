@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -273,5 +274,9 @@ public class Controller {
         timeline.play();
         observable.add(series);
         lineChart.getData().addAll(observable);
+    }
+    public void exit(){
+        Platform.exit();
+        System.exit(0);
     }
 }
