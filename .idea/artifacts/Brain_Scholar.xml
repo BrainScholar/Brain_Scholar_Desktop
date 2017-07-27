@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="Brain Scholar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Brain_Scholar</output-path>
+    <root id="root">
+      <element id="archive" name="BrainScholarDesktop.jar">
+        <element id="module-output" name="BrainScholarDesktop" />
+      </element>
+    </root>
+  </artifact>
+</component>
