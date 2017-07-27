@@ -164,7 +164,6 @@ public class Controller {
     public void updateGraph(){
         observable = FXCollections.observableArrayList();
         series =  new XYChart.Series<>();
-        series.setName("Action Potential Data Series");
         //*****************CHANGE VALUES*********************//
         calcButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

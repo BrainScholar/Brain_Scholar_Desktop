@@ -213,7 +213,7 @@
     <center>
         <VBox fx:id="graphBox" focusTraversable="true" scaleShape="true" BorderPane.alignment="CENTER">
             <children>
-                <LineChart id="lineChart" fx:id="lineChart" animated="false" cache="true" cacheHint="QUALITY" focusTraversable="true" stylesheets="@Style.css">
+                <LineChart id="lineChart" fx:id="lineChart" animated="false" cache="true" cacheHint="QUALITY" focusTraversable="true" stylesheets="@Style.css" legendVisible="false">
                     <xAxis>
                         <NumberAxis side="BOTTOM" tickUnit="2000" fx:id="xAxis" />
                     </xAxis>
