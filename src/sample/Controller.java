@@ -70,7 +70,6 @@ public class Controller {
             }
         });
         //********************************************************//
-
         lineChart.setAnimated(false);
         //Declare a new series and assign it to the graph
         ObservableList<XYChart.Series<Number, Number>> observable = FXCollections.observableArrayList();
@@ -165,6 +164,7 @@ public class Controller {
     public void updateGraph(){
         observable = FXCollections.observableArrayList();
         series =  new XYChart.Series<>();
+        series.setName("Action Potential Data Series");
         //*****************CHANGE VALUES*********************//
         calcButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
