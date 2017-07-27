@@ -242,7 +242,7 @@ public class Controller {
                     f[iteration%6000] = v[iteration%6000] * (1 - ((v[iteration%6000] * v[iteration%6000]) / 3));
                     v[(iteration + 1)%6000] = 1 / C * (GNA * f[iteration%6000] - GK * u[iteration%6000]) * del_t + v[iteration%6000];
                     System.out.println(STIMRATE);
-                    if (iteration%STIMRATE == 0) {
+                    if (iteration == intstim) {
                         v[(iteration + 1)%6000] = v[(iteration + 1)%6000] + V_STIM;
                         System.out.println(STIMRATE);
                     }
